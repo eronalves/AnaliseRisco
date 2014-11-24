@@ -1,0 +1,12 @@
+.ui-widget {
+	font-size: 13px !important;
+}
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
+
+.PageHeader{
+	font-size: 18px;
+	margin-left: 10px;
+}

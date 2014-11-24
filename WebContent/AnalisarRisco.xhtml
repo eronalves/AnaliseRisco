@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui" >
+<h:head>
+    <h:outputStylesheet name="css/AnalisarRisco.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+<f:view contentType="text/html; charset=ISO-8859-1" encoding="ISO-8859-1">		   
+	<h:outputText id="PageText" value="Analisar Risco" styleClass="PageHeader" />
+	<p:separator id="separator"/> 
+	<br />	
+	<h:form id="formAnalisarRisco">		
+		<p:dataTable id="dataSolicitacoes" var="analise" value="#{analisarRiscoMB.listAnaliseRisco}"			 
+	                 rowKey="#{analise.pedido}" selectionMode="single"  selection="#{analisarRiscoMB.analise}" 
+	                 paginator="true" rows="10" paginatorPosition="bottom"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	               	 rowsPerPageTemplate="5,10,15" >								        
+		
+		        <p:column headerText="Pedido" style="width:25%">
+		            <h:outputText value="#{analise.pedido}"/>
+		        </p:column>			
+		        
+		        <p:column headerText="Cliente" style="width:25%">
+		            <h:outputText value="#{analise.cliente}"/>
+		        </p:column>
+		        
+		        <p:column headerText="Valor" style="width:25%">
+			        <h:outputText value="#{analise.valor}"/>
+		        </p:column>		        		        
+		        				        
+		        <p:column headerText="Aprovar" style="width:25%">				      
+		            <p:commandButton id="btnAprovar" actionListener="#{analisarRiscoMB.onClickAprovar}" update="dataSolicitacoes" icon="ui-icon-check" title="Aprovar">
+           				<f:setPropertyActionListener value="#{analise}" target="#{analisarRiscoMB.analise}" />
+       				</p:commandButton>    
+		        </p:column>
+		        
+		        <p:column headerText="Reprovar" style="width:25%">
+		        	<p:commandButton id="btnReprovar" actionListener="#{analisarRiscoMB.onClickReprovar}" update="dataSolicitacoes" icon="ui-icon-close" title="Reprovar">				            
+           				<f:setPropertyActionListener value="#{analise}" target="#{analisarRiscoMB.analise}" />
+       				</p:commandButton>    
+		        </p:column>																														
+				     
+		 </p:dataTable>
+	</h:form>
+	
+	<p:growl id="messageGrowl" />
+</f:view>
+</h:body>
+</html>
