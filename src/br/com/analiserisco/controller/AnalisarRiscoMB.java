@@ -1,5 +1,6 @@
 package br.com.analiserisco.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,9 @@ import br.com.analiserisco.model.StatusAnaliseEnum;
 
 @ViewScoped
 @ManagedBean
-public class AnalisarRiscoMB {
-	
+public class AnalisarRiscoMB implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private AnaliseRiscoTO analise;
 	
 	private List<AnaliseRiscoTO> listAnaliseRisco;
@@ -50,7 +52,7 @@ public class AnalisarRiscoMB {
 			
 			listAnaliseRisco = null;
 			
-			enviarMensagemInfo("Analise do pedido " + String.valueOf(analise.getPedido()) + " aprovada.");
+		enviarMensagemInfo("", "Pedido " + String.valueOf(analise.getPedido()) + " aprovado.");
 		}
 	}
 	
@@ -61,13 +63,18 @@ public class AnalisarRiscoMB {
 			
 			listAnaliseRisco = null;
 			
-			enviarMensagemInfo("Analise do pedido " + String.valueOf(analise.getPedido()) + " reprovada."); 
+			enviarMensagemInfo("", "Pedido " + String.valueOf(analise.getPedido()) + " reprovado."); 
 		}
 	}
 	
-	public void enviarMensagemInfo(String mensagem){
-		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, mensagem);		
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	public void onClickAtualizar(){
+		listAnaliseRisco = null;
+	}
+	
+	public void enviarMensagemInfo(String titulo, String mensagem){
+		FacesContext context = FacesContext.getCurrentInstance();
+        
+        context.addMessage(null, new FacesMessage(titulo, mensagem) );        		
 	}
 
 }

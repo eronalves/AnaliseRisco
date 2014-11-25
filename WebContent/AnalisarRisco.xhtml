@@ -12,37 +12,43 @@
 </h:head>
 
 <h:body>
-<f:view contentType="text/html; charset=ISO-8859-1" encoding="ISO-8859-1">		   
+<f:view contentType="text/html; charset=ISO-8859-1" encoding="ISO-8859-1">		 
+	<p:growl id="messageGrowl" showDetail="true" sticky="true"/>  
+	
 	<h:outputText id="PageText" value="Analisar Risco" styleClass="PageHeader" />
 	<p:separator id="separator"/> 
 	<br />	
-	<h:form id="formAnalisarRisco">		
+	<h:form id="formAnalisarRisco">
+		<p:commandButton id="btnAtualizar" actionListener="#{analisarRiscoMB.onClickAtualizar}" 
+				update="dataSolicitacoes, :messageGrowl" icon="ui-icon-arrowrefresh-1-s" title="Atualizar"/>
+		<br />
+		<br />		
 		<p:dataTable id="dataSolicitacoes" var="analise" value="#{analisarRiscoMB.listAnaliseRisco}"			 
 	                 rowKey="#{analise.pedido}" selectionMode="single"  selection="#{analisarRiscoMB.analise}" 
 	                 paginator="true" rows="10" paginatorPosition="bottom"  
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
 	               	 rowsPerPageTemplate="5,10,15" >								        
 		
-		        <p:column headerText="Pedido" style="width:25%">
+		        <p:column headerText="Pedido" style="width:10%">
 		            <h:outputText value="#{analise.pedido}"/>
 		        </p:column>			
 		        
-		        <p:column headerText="Cliente" style="width:25%">
+		        <p:column headerText="Cliente" style="width:60%">
 		            <h:outputText value="#{analise.cliente}"/>
 		        </p:column>
 		        
-		        <p:column headerText="Valor" style="width:25%">
+		        <p:column headerText="Valor" style="width:10%;text-align: right;">
 			        <h:outputText value="#{analise.valor}"/>
 		        </p:column>		        		        
 		        				        
-		        <p:column headerText="Aprovar" style="width:25%">				      
-		            <p:commandButton id="btnAprovar" actionListener="#{analisarRiscoMB.onClickAprovar}" update="dataSolicitacoes" icon="ui-icon-check" title="Aprovar">
+		        <p:column headerText="Aprovar" style="width:10%;text-align: center;">				      
+		            <p:commandButton id="btnAprovar" actionListener="#{analisarRiscoMB.onClickAprovar}" update="dataSolicitacoes, :messageGrowl" icon="ui-icon-check" title="Aprovar">
            				<f:setPropertyActionListener value="#{analise}" target="#{analisarRiscoMB.analise}" />
        				</p:commandButton>    
 		        </p:column>
 		        
-		        <p:column headerText="Reprovar" style="width:25%">
-		        	<p:commandButton id="btnReprovar" actionListener="#{analisarRiscoMB.onClickReprovar}" update="dataSolicitacoes" icon="ui-icon-close" title="Reprovar">				            
+		        <p:column headerText="Reprovar" style="width:10%; text-align: center;" >
+		        	<p:commandButton id="btnReprovar" actionListener="#{analisarRiscoMB.onClickReprovar}" update="dataSolicitacoes, :messageGrowl" icon="ui-icon-close" title="Reprovar">				            
            				<f:setPropertyActionListener value="#{analise}" target="#{analisarRiscoMB.analise}" />
        				</p:commandButton>    
 		        </p:column>																														
@@ -50,7 +56,7 @@
 		 </p:dataTable>
 	</h:form>
 	
-	<p:growl id="messageGrowl" />
+
 </f:view>
 </h:body>
 </html>
